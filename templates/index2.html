@@ -1,16 +1,18 @@
 {% extends "layout.html" %}
 	{% block body %}
-		{% if  session['loginstatus'] and session['prava'] == 1 %}
+		{% if session['loginstatus'] %}
 		<div id="LoginForm">
-        	<p> Hello, {{ session['username'] }} ! </p>
-        	<form action="{{ url_for('info') }}" method="post">
-        		<button>  Flights </button>
-        	</form>
-        	<form action="{{ url_for('logout') }}">
-        		<button >Logout</button>
-        	</form>
+        		<p> Hello, {{ session['username'] }} ! </p>
+        		{% if session['prava'][0] == 1 %}
+        			<form action="{{ url_for('info') }}" method="post">
+        				<button>  Flights </button>
+        			</form>
+        		{% endif %}
+        		<form action="{{ url_for('logout') }}">
+        			<button >Logout</button>
+        		</form>
         	
-        </div>
+            	</div>
 		{% else %}
 		<form action="{{ url_for('login') }}" method="post">
 			<div id="LoginForm">

@@ -26,7 +26,7 @@ def index():
 		olist.add(flight.origin)
 		dlist.add(flight.destination)
 	if not session.get('loginstatus'):	
-		return render_template("index2.html", flights=flights, olist=olist, dlist=dlist, loginstatus=0)
+		return render_template("index2.html", flights=flights, olist=olist, dlist=dlist)
 	else:
 		username = session.get('username')
 		return render_template("index2.html", flights=flights, olist=olist, dlist=dlist)

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Book your flight!</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <style>
+            table {
+            	margin-left:20%;
+				margin-right:20%;
+				position: absolute;
+			    top: 20%;
+			    
+                border: 2px solid black;
+                border-collapse: collapse;
+                width: 50%;
+            }
+
+            th, td {
+                border: 1px solid black;
+                padding: 5px;
+                text-align: center;
+            }
+
+            th {
+                background-color: lightgray;
+            }
+            #LoginForm {
+				margin-left:85%;
+				margin-right:5%;
+                top:2%;
+                position: absolute;
+			}
+
+			#SearchForm {
+			    margin: 0;
+			    background: yellow;
+			    position: absolute;
+			    top: 50%;
+			    left: 50%;
+			    margin-right: -50%;
+			    transform: translate(-50%, -50%)
+			    
+			    
+			}
+        </style>
+
+
+    </head>
+    </head>
+    <body>
+    	{% block body %}
+    	{% endblock %}
+
+    </body>
+</html>

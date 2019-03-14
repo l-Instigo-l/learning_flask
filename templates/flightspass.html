@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+	{% block body %}
+	<table>
+	<tr>
+		<th> id </th> <th> Name </th> <th> Flight ID</th>
+	</tr>
+	{% for passenger in passengers %}
+
+	<tr>
+		<td> {{ passenger.id }} </td> <td> {{ passenger.name }} </td> <td> {{ passenger.flight_id }}</td>
+	</tr>
+	{% endfor %}
+	</table>
+	{% endblock %}

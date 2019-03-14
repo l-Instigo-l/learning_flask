@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block body %}
+	<table>
+	{% for flight in searchres %}
+	<tr>
+		<td><a href="{{ url_for('book', flight_id=flight.id) }}">
+                    {{ flight.origin }} to {{ flight.destination }}</td> <td>{{ flight.date1 }}</td>
+	</tr>
+	{% endfor %}
+	</table>
+{% endblock %}

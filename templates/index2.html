@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+	{% block body %}
+		{% if  session['loginstatus'] and session['prava'] == 1 %}
+		<div id="LoginForm">
+        	<p> Hello, {{ session['username'] }} ! </p>
+        	<form action="{{ url_for('info') }}" method="post">
+        		<button>  Flights </button>
+        	</form>
+        	<form action="{{ url_for('logout') }}">
+        		<button >Logout</button>
+        	</form>
+        	
+        </div>
+		{% else %}
+		<form action="{{ url_for('login') }}" method="post">
+			<div id="LoginForm">
+            	<div>
+                	<input name="username" type="text" placeholder="Username">
+                </div>
+                <div>
+                	<input name="password" type="password" placeholder="Password">
+                </div>
+
+                <button>Login</button>
+            </div>
+        
+		</form>
+		{% endif %}
+		<form action="{{ url_for('searchform') }}" method="post">
+			
+            <div id="SearchForm">
+            	
+            	<input name="Origin" list="olist" placeholder="Origin">
+            
+           	
+            	<input name="Destination" list="dlist" placeholder="Destination">
+            	<input name="Seats" list="Seats" plaseholder="Number of seats">
+            
+            	<input name="Date1" input type="date">
+
+            	<button>Search</button>
+            <datalist id="olist">
+            	{%for i in olist %}
+            	<option value="{{ i }}">
+            	{% endfor %}
+            </datalist>
+            <datalist id="dlist">
+            	{%for i in dlist %}
+            	<option value="{{ i }}">
+            	{% endfor %}
+            </datalist>
+            <datalist id="Seats">
+        			<option value="1">
+        			<option value="2">
+        			<option value="3">
+        			<option value="4">		
+        	</datalist>
+		</form>
+	{% endblock %}

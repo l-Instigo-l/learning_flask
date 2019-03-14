@@ -6,7 +6,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from flask import Flask, redirect, url_for, render_template, request, session, flash, abort
 from flask_session import Session
 
-engine = create_engine('postgresql://postgres:skyline92@localhost/postgres')
+engine = create_engine('postgresql://login:password123@localhost/postgres')
 db = scoped_session(sessionmaker(bind=engine))
 
 app = Flask(__name__)

@@ -5,7 +5,7 @@ from models import *
 from sqlalchemy import create_engine, and_
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-from flask import Flask, redirect, url_for,  render_template, request, session
+from flask import Flask, redirect, url_for,  render_template, request, session, jsonify
 from flask_session import Session
 
 
@@ -99,6 +99,23 @@ def flightsinfo(flight_id):
 	else:
 		return render_template("error.html", message="You need to login first")
 
+@app.route("/api/flights/<int:flight_id>")
+def flight_api(flight_id):
+
+    flight = Flight.query.get(flight_id)
+    if flight is None:
+        return jsonify({"error": "Invalid flight_id"}), 422
+
+    passengers = flight.passengers
+    names = []
+    for passenger in passengers:
+        names.append(passenger.name)
+    return jsonify({
+            "origin": flight.origin,
+            "destination": flight.destination,
+            "date": flight.date1,
+            "passengers": names
+        })
 
 if __name__ == "__main__":
     app.secret_key = 'super secret key'

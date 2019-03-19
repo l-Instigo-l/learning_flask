@@ -12,7 +12,7 @@ from flask_session import Session
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
-app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://postgres:skyline92@localhost/postgres'
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://login:password@localhost/postgres'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
@@ -20,7 +20,6 @@ db.init_app(app)
 
 @app.route("/", methods=['POST', 'GET'])
 def index():
-
 	flights = Flight.query.all()
 	olist = set()
 	dlist = set()
@@ -28,10 +27,10 @@ def index():
 	for flight in flights:
 		olist.add(flight.origin)
 		dlist.add(flight.destination)
+		
 	if not session.get('loginstatus'):	
 		return render_template("index2.html", flights=flights, olist=olist, dlist=dlist)
 	else:
-
 		return render_template("index2.html", flights=flights, olist=olist, dlist=dlist)
 
 @app.route("/searchform", methods=["POST"])
@@ -41,20 +40,15 @@ def searchform():
 	date = request.form.get("Date1")
 	seats = request.form.get("Seats")
 	
-	
 	flight = Flight.query.filter(and_(Flight.origin == ori, Flight.destination == dest, Flight.date1 == date)).all()
 	if flight :
 		searchres = flight 
 		return render_template("searchform.html", searchres=searchres)
-		
-		
-	
 	else:
 		return render_template("error.html", message="Nope")
 		
 @app.route("/flights/<int:flight_id>")
 def book(flight_id):
-
 	session['flight_id'] = flight_id
 	return render_template("bookflight.html")
 
@@ -62,6 +56,7 @@ def book(flight_id):
 def success():
 	name = request.form.get("Name")
 	flight_id = session.get('flight_id')
+	
 	if name is None:
 		return render_template("error.html", message="Enter your name please")
 	
@@ -71,7 +66,6 @@ def success():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-	
 	username = request.form.get("username")
 	password = request.form.get("password")
 
@@ -81,11 +75,9 @@ def login():
 			return render_template('error.html', message="Wrong Username or password")
 		else:
 			user = UserData.query.filter(and_(UserData.login == username, UserData.password == password)).first()
-			
 			session['loginstatus'] = True
 			session['username'] = username
 			session['prava'] = user.privelegies
-
 			return index()	
     
 @app.route("/logout")

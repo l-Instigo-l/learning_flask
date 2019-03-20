@@ -66,7 +66,7 @@ def login():
 		else:
 			session['loginstatus'] = True
 			session['username'] = username
-			session['prava'] = db.execute("SELECT privelegies FROM userdata WHERE login = :login AND password = :password", {"login": username, "password": password}).fetchone()
+			session['prava'] = db.execute("SELECT priveleges FROM userdata WHERE login = :login AND password = :password", {"login": username, "password": password}).fetchone()
 			return index()	
     
 @app.route("/logout")

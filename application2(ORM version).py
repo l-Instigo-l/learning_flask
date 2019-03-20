@@ -77,7 +77,7 @@ def login():
 			user = UserData.query.filter(and_(UserData.login == username, UserData.password == password)).first()
 			session['loginstatus'] = True
 			session['username'] = username
-			session['prava'] = user.privelegies
+			session['prava'] = user.priveleges
 			return index()	
     
 @app.route("/logout")

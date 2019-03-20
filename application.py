@@ -3,7 +3,7 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-from flask import Flask, redirect, url_for, render_template, request, session, flash, abort
+from flask import Flask, redirect, url_for, render_template, request, session
 from flask_session import Session
 
 engine = create_engine('postgresql://login:password123@localhost/postgres')
@@ -17,7 +17,6 @@ Session(app)
 
 @app.route("/", methods=['POST', 'GET'])
 def index():
-
 	flights = db.execute("SELECT * FROM flights").fetchall()
 	olist = set()
 	dlist = set()
@@ -25,7 +24,6 @@ def index():
 	for flight in flights:
 		olist.add(flight.origin)
 		dlist.add(flight.destination)
-	
 	return render_template("index2.html", flights=flights, olist=olist, dlist=dlist)
 
 
@@ -36,18 +34,14 @@ def searchform():
 	date = request.form.get("Date1")
 	seats = request.form.get("Seats")
 	
-	
-
 	if db.execute("SELECT * FROM flights WHERE origin = :ori AND destination = :dest AND date1 = :date",{"ori": ori, "dest": dest, "date": date}).rowcount == 0:
 		return render_template("error.html", message="Nope")
-	
 	else:
 		searchres = db.execute("SELECT * FROM flights WHERE origin = :ori AND destination = :dest AND date1 = :date",{"ori": ori, "dest": dest, "date": date}).fetchall()
 		return render_template("searchform.html", searchres=searchres)
 		
 @app.route("/flights/<int:flight_id>")
 def book(flight_id):
-
 	session['flight_id'] = flight_id
 	return render_template("bookflight.html")
 
@@ -63,7 +57,6 @@ def success():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-	
 	username = request.form.get("username")
 	password = request.form.get("password")
 
